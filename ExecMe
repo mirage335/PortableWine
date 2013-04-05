@@ -1,0 +1,20 @@
+#!/bin/bash
+# wine-bottle v. 0.2
+# (c) 2009 Linux-Tipps.blogspot.com, (c) 2009 Joost @ http://home.student.utwente.nl/j.vanderhof
+# newest version at http://linux-tipps.blogspot.com/2009/03/how-to-make-your-own-wine-bottles.html
+# published under the GPL v. 3.0 http://gplv3.fsf.org/                                                                                                      
+
+#Some changes by mirage335. Same license as above.
+
+#Runs exe inside self-contained WINEPREFIX, in the same folder as this script. Intended for portable program installations.
+
+. ubiquitous_bash.sh
+
+wineBottle="$(getScriptAbsoluteFolder)/wineBottle"
+mkdir -p "$wineBottle"
+export WINEPREFIX="$wineBottle/"
+
+#Program executables may live outside the wineBottle. Alternatively, the program may be installed inside the wineBottle folder. Either way, the wineBottle will store registry settings and such.
+programDir="$(getScriptAbsoluteFolder)/Program"
+mkdir -p "$programDir"
+wine "$programDir"/xyz.exe -opt1 -opt2 "$@"

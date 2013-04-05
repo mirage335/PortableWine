@@ -1,0 +1,21 @@
+#!/bin/bash
+# wine-bottle v. 0.2
+# (c) 2009 Linux-Tipps.blogspot.com, (c) 2009 Joost @ http://home.student.utwente.nl/j.vanderhof
+# newest version at http://linux-tipps.blogspot.com/2009/03/how-to-make-your-own-wine-bottles.html
+# published under the GPL v. 3.0 http://gplv3.fsf.org/                                                                                                      
+
+#Some changes by mirage335. Same license as above.
+
+#Install to PATH for best results.
+
+#Runs an exe file inside a self-contained WINEPREFIX, in the same folder as that exe.
+
+if [[ -e "$1" ]]  ; then exeDir=$(realpath -s "$1") ; exeDir=$(dirname "$exeDir") ; else exeDir="$(pwd)" ; fi
+
+wineBottle=${exeDir/\/wineBottle*}
+wineBottle="$wineBottle"/wineBottle
+mkdir -p "$wineBottle"
+
+export WINEPREFIX="$wineBottle/"
+cd "$exeDir"
+wine "${@}"
